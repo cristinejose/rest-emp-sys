@@ -62,7 +62,8 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	private boolean validate(User user) {
-		return !StringUtils.isAnyBlank(user.getFirstName(), user.getLastName(), user.getPosition());
+		return !StringUtils.isAnyBlank(user.getFirstName(), user.getMiddleName(), user.getLastName(), user.getbDay(),
+				user.getPosition());
 	}
 
 }

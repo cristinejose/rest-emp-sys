@@ -1,5 +1,6 @@
 package com.ibm.training.bootcamp.rest.sample01.restcontroller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -33,14 +34,16 @@ public class UsersController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getUsers(
-			@QueryParam("firstName") String firstName, 
-			@QueryParam("lastName") String lastName, 
+			@QueryParam("firstName") String firstName,
+			@QueryParam("middleName") String middleName,
+			@QueryParam("lastName") String lastName,
+			@QueryParam("bDay") String bDay,
 			@QueryParam("position") String position){
 
 		try {
 			List<User> users;
 			
-			if (StringUtils.isAllBlank(firstName, lastName, position)) {
+			if (StringUtils.isAllBlank(firstName, middleName, lastName, bDay, position)) {
 				users = userService.findAll();
 			} else {
 				users = userService.findByName(firstName, lastName, position);
@@ -61,7 +64,8 @@ public class UsersController {
 
 		try {
 			userService.add(user);
-			String result = "User saved : " + user.getFirstName() + " " + user.getLastName() + " " + user.getPosition();
+			String result = "User saved : " + user.getFirstName() + " " + user.getMiddleName() + " " + 
+			user.getLastName() + " " + user.getbDay() + " " + user.getPosition();
 			return Response.status(201).entity(result).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
@@ -75,7 +79,8 @@ public class UsersController {
 
 		try {
 			userService.upsert(user);
-			String result = "User updated : " + user.getFirstName() + " " + user.getLastName() + " " + user.getPosition();
+			String result = "User updated : " + user.getFirstName() + " " + user.getMiddleName() + " " +
+			user.getLastName() + " " + user.getbDay() + " " + user.getPosition();
 			return Response.status(200).entity(result).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(e);

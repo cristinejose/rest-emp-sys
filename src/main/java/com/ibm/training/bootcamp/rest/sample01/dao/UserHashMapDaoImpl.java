@@ -18,9 +18,9 @@ public class UserHashMapDaoImpl implements UserDao {
 
 	static {
 		USER_STORE = new HashMap<>();
-		User user1 = new User(id++, "Tony", "Stark", "iron man");
-		User user2 = new User(id++, "Steve", "Rogers", "captain america");
-		User user3 = new User(id++, "Peter", "Parker", "spiderman");
+		User user1 = new User(id++, "Tony", "AAA", "Stark", "01-02-1960", "iron man");
+		User user2 = new User(id++, "Steve", "BBB", "Rogers", "07-08-1730", "captain america");
+		User user3 = new User(id++, "Peter", "CCC", "Parker",  "12-02-1990", "spiderman");
 		USER_STORE.put(user1.getId(), user1);
 		USER_STORE.put(user2.getId(), user2);
 		USER_STORE.put(user3.getId(), user3);
@@ -58,17 +58,6 @@ public class UserHashMapDaoImpl implements UserDao {
 				.filter(user -> StringUtils.isBlank(position) || user.getLastName().equalsIgnoreCase(position))
 				.collect(Collectors.toList());
 		
-//		List<User> users = new ArrayList<>(USER_STORE.values());
-//
-//		List<User> results = new ArrayList<>();
-//		for (User user : users) {
-//			if ( (StringUtils.isBlank(firstName) || user.getFirstName().equalsIgnoreCase(firstName)) 
-//					&& (StringUtils.isBlank(lastName) || user.getLastName().equalsIgnoreCase(lastName))) {
-//				results.add(user);
-//			}
-//		}
-		
-		//return results;
 		return users;
 	}
 

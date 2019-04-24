@@ -48,8 +48,8 @@ public class UserJdbcDaoImpl implements UserDao {
 	}
 
 	private void createUserTable() {
-		String createSql = "CREATE TABLE USERS " + "(id INTEGER IDENTITY PRIMARY KEY, " + " firstname VARCHAR(255), "
-				+ " lastname VARCHAR(255)," + " position VARCHAR(255))";
+		String createSql = "CREATE TABLE USERS " + "(id INTEGER IDENTITY PRIMARY KEY, " + " firstname VARCHAR(255), " 
+				+ " middlename VARCHAR(255)," + " lastname VARCHAR(255)," + "bday VARCHAR(255)," + " position VARCHAR(255))";
 
 		try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
 
@@ -63,10 +63,10 @@ public class UserJdbcDaoImpl implements UserDao {
 
 	private void insertInitUsers() {
 
-		add(new User("Tony","Stark","iron man"));
-		add(new User("Steve","Rogers", "captain america"));
-		add(new User("Peter","Parker", "spiderman"));
-		add(new User("Natasha","Romanov", "captain marvel"));
+		add(new User("Tony", "AAA", "Stark", "01-02-1960", "iron man"));
+		add(new User("Steve","BBB", "Rogers", "07-08-1738", "captain america"));
+		add(new User("Peter", "CCC", "Parker", "12-02-1990", "spiderman"));
+		add(new User("Natasha", "DDD", "Romanov", "03-30-1981", "captain marvel"));
 	}
 
 	@Override
@@ -81,8 +81,7 @@ public class UserJdbcDaoImpl implements UserDao {
 	public List<User> findByName(String firstName, String lastName, String position) {
 		List<User> users = new ArrayList<>();
 
-		String sql = "SELECT id, firstname, lastname, position FROM USERS WHERE firstname LIKE ? AND lastname LIKE ? AND position LIKE ?";
-//		String sql1 = "SELECT id, firstname, lastname, position FROM USERS WHERE position LIKE ?";
+		String sql = "SELECT id, firstname, middlename, lastname, bday, position FROM USERS WHERE firstname LIKE ? AND lastname LIKE ? AND position LIKE ?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setString(1, createSearchValue(firstName));
@@ -93,7 +92,7 @@ public class UserJdbcDaoImpl implements UserDao {
 
 			while (results.next()) {
 				User user = new User(Long.valueOf(results.getInt("id")), results.getString("firstname"),
-						results.getString("lastname"), results.getString("position"));
+					results.getString("middlename"), results.getString("lastname"), results.getString("bday"), results.getString("position"));
 				users.add(user);
 			}
 
@@ -121,13 +120,15 @@ public class UserJdbcDaoImpl implements UserDao {
 	@Override
 	public void add(User user) {
 		
-		String insertSql = "INSERT INTO USERS (firstname, lastname, position) VALUES (?, ?, ?)";
+		String insertSql = "INSERT INTO USERS (firstname, middlename, lastname, bday, position) VALUES (?, ?, ?, ?, ?)";
 
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(insertSql)) {
 
 			ps.setString(1, user.getFirstName());
-			ps.setString(2, user.getLastName());
-			ps.setString(3, user.getPosition());
+			ps.setString(2, user.getMiddleName());
+			ps.setString(3, user.getLastName());
+			ps.setString(4, user.getbDay());
+			ps.setString(5, user.getPosition());
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
@@ -138,14 +139,16 @@ public class UserJdbcDaoImpl implements UserDao {
 
 	@Override
 	public void update(User user) {
-		String updateSql = "UPDATE users SET firstname = ?, lastname = ?, position = ? WHERE id = ?";
+		String updateSql = "UPDATE users SET firstname = ?, middlename = ?, lastname = ?, bday = ?, position = ? WHERE id = ?";
 
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(updateSql)) {
 
 			ps.setString(1, user.getFirstName());
-			ps.setString(2, user.getLastName());
-			ps.setString(3, user.getPosition());
-			ps.setLong(4, user.getId());
+			ps.setString(2, user.getMiddleName());
+			ps.setString(3, user.getLastName());
+			ps.setString(4, user.getbDay());
+			ps.setString(5, user.getPosition());
+			ps.setLong(6, user.getId());
 			ps.executeUpdate();
 
 		} catch (SQLException e) {

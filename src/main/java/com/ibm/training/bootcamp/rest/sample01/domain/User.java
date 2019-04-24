@@ -1,24 +1,30 @@
 package com.ibm.training.bootcamp.rest.sample01.domain;
 
+import java.sql.Date;
+
 public class User {
 
 	Long id;
 	private String firstName;
+	private String middleName;
 	private String lastName;
+	private String bDay;
 	private String position;
 	
 	public User() {
 		
 	}
 	
-	public User(String firstName, String lastName, String position) {
-		this(null, firstName, lastName, position);
+	public User(String firstName, String middleName, String lastName, String bDay, String position) {
+		this(null, firstName, middleName, lastName, bDay, position);
 	}
 
-	public User(Long id, String firstName, String lastName, String position) {
+	public User(Long id, String firstName, String middleName, String lastName, String bDay, String position) {
 		this.id = id;
 		this.firstName = firstName;
+		this.middleName = middleName;
 		this.lastName = lastName;
+		this.bDay = bDay;
 		this.position = position;
 	}
 	
@@ -52,6 +58,22 @@ public class User {
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getbDay() {
+		return bDay;
+	}
+
+	public void setbDay(String bDay) {
+		this.bDay = bDay;
 	}
 	
 }
