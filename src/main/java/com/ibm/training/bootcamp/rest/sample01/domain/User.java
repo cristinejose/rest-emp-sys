@@ -1,6 +1,6 @@
 package com.ibm.training.bootcamp.rest.sample01.domain;
 
-import java.sql.Date;
+//import java.sql.Date;
 
 public class User {
 

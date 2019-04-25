@@ -68,6 +68,22 @@ public class UsersController {
 			user.getLastName() + " " + user.getbDay() + " " + user.getPosition();
 			return Response.status(201).entity(result).build();
 		} catch (Exception e) {
+			
+			throw new WebApplicationException(e);
+		}
+
+	}
+	
+	@POST
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Path("/try")
+	public Response tryPost(String str) {
+
+		try {
+			
+			return Response.status(201).entity(str).build();
+		} catch (Exception e) {
+			
 			throw new WebApplicationException(e);
 		}
 
