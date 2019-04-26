@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.ibm.training.bootcamp.rest.sample01.dao.UserDao;
-import com.ibm.training.bootcamp.rest.sample01.dao.UserHashMapDaoImpl;
 import com.ibm.training.bootcamp.rest.sample01.dao.UserJdbcDaoImpl;
 import com.ibm.training.bootcamp.rest.sample01.domain.User;
 

@@ -1,6 +1,5 @@
 package com.ibm.training.bootcamp.rest.sample01.restcontroller;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;

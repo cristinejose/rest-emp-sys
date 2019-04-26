@@ -62,7 +62,8 @@ public class UserJdbcDaoImpl implements UserDao {
 	}
 
 	private void insertInitUsers() {
-
+		
+		add(new User());
 		add(new User("Tony", "AAA", "Stark", "01-02-1960", "iron man"));
 		add(new User("Steve","BBB", "Rogers", "07-08-1738", "captain america"));
 		add(new User("Peter", "CCC", "Parker", "12-02-1990", "spiderman"));
