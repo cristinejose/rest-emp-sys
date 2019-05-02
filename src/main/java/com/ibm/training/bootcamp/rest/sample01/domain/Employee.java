@@ -2,7 +2,7 @@ package com.ibm.training.bootcamp.rest.sample01.domain;
 
 //import java.sql.Date;
 
-public class User {
+public class Employee {
 
 	Long id;
 	private String firstName;
@@ -11,15 +11,15 @@ public class User {
 	private String bDay;
 	private String position;
 	
-	public User() {
+	public Employee() {
 		
 	}
 	
-	public User(String firstName, String middleName, String lastName, String bDay, String position) {
+	public Employee(String firstName, String middleName, String lastName, String bDay, String position) {
 		this(null, firstName, middleName, lastName, bDay, position);
 	}
 
-	public User(Long id, String firstName, String middleName, String lastName, String bDay, String position) {
+	public Employee(Long id, String firstName, String middleName, String lastName, String bDay, String position) {
 		this.id = id;
 		this.firstName = firstName;
 		this.middleName = middleName;

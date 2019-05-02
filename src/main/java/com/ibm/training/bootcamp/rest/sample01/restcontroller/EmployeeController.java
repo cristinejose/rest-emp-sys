@@ -17,22 +17,22 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.ibm.training.bootcamp.rest.sample01.domain.User;
-import com.ibm.training.bootcamp.rest.sample01.service.UserService;
-import com.ibm.training.bootcamp.rest.sample01.service.UserServiceImpl;
+import com.ibm.training.bootcamp.rest.sample01.domain.Employee;
+import com.ibm.training.bootcamp.rest.sample01.service.EmployeeService;
+import com.ibm.training.bootcamp.rest.sample01.service.EmployeeServiceImpl;
 
-@Path("/users")
-public class UsersController {
+@Path("/employees")
+public class EmployeeController {
 
-	private UserService userService;
+	private EmployeeService employeeService;
 
-	public UsersController() {
-		this.userService = new UserServiceImpl();
+	public EmployeeController() {
+		this.employeeService = new EmployeeServiceImpl();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getUsers(
+	public List<Employee> getEmployees(
 			@QueryParam("firstName") String firstName,
 			@QueryParam("middleName") String middleName,
 			@QueryParam("lastName") String lastName,
@@ -40,15 +40,15 @@ public class UsersController {
 			@QueryParam("position") String position){
 
 		try {
-			List<User> users;
+			List<Employee> employees;
 			
 			if (StringUtils.isAllBlank(firstName, middleName, lastName, bDay, position)) {
-				users = userService.findAll();
+				employees = employeeService.findAll();
 			} else {
-				users = userService.findByName(firstName, lastName, position);
+				employees = employeeService.findByName(firstName, lastName, position);
 			}
 						
-			return users;
+			return employees;
 			
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
@@ -59,12 +59,12 @@ public class UsersController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addUser(User user) {
+	public Response addEmployee(Employee employee) {
 
 		try {
-			userService.add(user);
-			String result = "User saved : " + user.getFirstName() + " " + user.getMiddleName() + " " + 
-			user.getLastName() + " " + user.getbDay() + " " + user.getPosition();
+			employeeService.add(employee);
+			String result = "Employee saved : " + employee.getFirstName() + " " + employee.getMiddleName() + " " + 
+					employee.getLastName() + " " + employee.getbDay() + " " + employee.getPosition();
 			return Response.status(201).entity(result).build();
 		} catch (Exception e) {
 			
@@ -90,12 +90,12 @@ public class UsersController {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateUser(User user) {
+	public Response updateEmployee(Employee employee) {
 
 		try {
-			userService.upsert(user);
-			String result = "User updated : " + user.getFirstName() + " " + user.getMiddleName() + " " +
-			user.getLastName() + " " + user.getbDay() + " " + user.getPosition();
+			employeeService.upsert(employee);
+			String result = "Employee updated : " + employee.getFirstName() + " " + employee.getMiddleName() + " " +
+					employee.getLastName() + " " + employee.getbDay() + " " + employee.getPosition();
 			return Response.status(200).entity(result).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
@@ -105,12 +105,12 @@ public class UsersController {
 
 	@DELETE
 	@Path("{id}")
-	public Response deleteUser(@PathParam("id") String id) {
+	public Response deleteEmployee(@PathParam("id") String id) {
 
 		try {
 			Long longId = Long.parseLong(id);
-			userService.delete(longId);
-			String result = "User deleted";
+			employeeService.delete(longId);
+			String result = "Employee deleted";
 			return Response.status(200).entity(result).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
